@@ -1,4 +1,4 @@
-Welcome to CooCox CoIDE (screen)
+Welcome to CooCox CoIDE (front screen)
 Click on Create a New Project
 ****************************************************************
 New Project (screen)
@@ -52,91 +52,55 @@ CONFIGURATION LINK
 ****************************************************************
 
 FILE: startup_stm32f3xx.c
-  Change line 24
-from
-  #define STACK_SIZE   0x00000200     //!< The Stack size suggest using even number   
-to 
-  #define STACK_SIZE   0x00002000      //!< The Stack size suggest using even number   
-
-Change line 143
-from 
-  //extern void SystemInit(void);    /*!< Setup the microcontroller system(CMSIS) */
-to
-  extern void SystemInit(void);    /*!< Setup the microcontroller system(CMSIS) */
-
-Change line 157 
-from
-  (void *)&pulStack[STACK_SIZE],     /*!< The initial stack pointer         */
-to
-  (void (*)(void))((unsigned long)pulStack + sizeof(pulStack)), /*!< The initial stack pointer */
-
-Change line 299 (insert new line. line 300 is main();)
-from  
- main();
-to
-  SystemInit();
-  main(); 
+  On line 24, change the STACK_SIZE value from 0x00000200  to  0x00002000   
+  On line 143, remove the // from in front of extern void SystemInit(void); 
+  On line 157, replace (void *)&pulStack[STACK_SIZE], with (void (*)(void))((unsigned long)pulStack + sizeof(pulStack)), 
+  On line 299,insert new SystemInit(); above main();
 
 ****************************************************************
+
 FILE: system_stm32f4xx.c
-Change line 59
-from
-  25000000
-to 
-  8000000
+On line 59, change 25000000 to 8000000
+On line 60, change 25 to 8
+On line 149, change 25 to 8
 
-Change line 60
-from
-  25
-to 
-  8
-
-Change line 149
-from
-  #define PLL_M      25
-to
-  #define PLL_M      8
 ****************************************************************
+
 FILE: stm32f4xx.h 
-Change line 92/
-from
-#define HSE_VALUE    ((uint32_t)25000000)    
-to
-#define HSE_VALUE    ((uint32_t)8000000) 
-****************************************************************
-FILE: serial.h
+On line 92, change the HSE_VALUE to ((uint32_t)8000000) 
 
-Change line 32
-from
-  #include "board.h"
-to 
-  #include "stm32f4xx_conf.h"
+****************************************************************
+
+FILE: serial.h
+On line 32, Replace board.h with stm32f4xx_conf.h
 
 ****************************************************************
 
 FILE: syscalls.c
-
-Replace this lines 4 - 9
-  #include "board.h"
- 
-  #include <stdio.h>
-  #include <stdarg.h>
-  #include <sys/types.h>
-  #include <sys/stat.h>
-
+On lines 4 - 9 replce
+ 0
+ 1 
+ 2
+ 3 
+ 4 #include "board.h"
+ 5
+ 6 #include <stdio.h>
+ 7 #include <stdarg.h>
+ 8 #include <sys/types.h>
+ 9 #include <sys/stat.h>
 
 With this
-  #include "syscalls.h"
-  #include "stm32f4xx_rcc.h"
-  #include "stm32f4xx_usart.h"
-  #include <stdio.h>
-  #include <string.h>
-  #include <stdarg.h>
-  #include <sys/types.h>
-  #include <sys/stat.h>
+ 1 #include "syscalls.h"
+ 2 #include "stm32f4xx_rcc.h"
+ 3 #include "stm32f4xx_usart.h"
+ 4 #include <stdio.h>
+ 5 #include <string.h>
+ 6 #include <stdarg.h>
+ 7 #include <sys/types.h>
+ 8 #include <sys/stat.h>
 
-Change (approx.) line 74 - 88
-from
+On (approx.) line 74 - 88, replace the following 
+
 extern int _write( int file, char *ptr, int len )
 {
    int iIndex = 0;
@@ -153,7 +117,7 @@ extern int _write( int file, char *ptr, int len )
    return iIndex ;
 }
 
-to
+--- with this ---
 int _write(int file, char *ptr, int len)
 {
    int counter;
