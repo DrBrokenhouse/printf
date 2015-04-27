@@ -1,11 +1,5 @@
-# printf
-Setup the STM32F4 Discovery board for printf
-
-This is the step by step setup of the libraries so the printf function will work.
-
 Welcome to CooCox CoIDE (screen)
 - Click on Create a New Project
-
 ****************************************************************
 New Project (screen)
 PROJECT
@@ -22,7 +16,6 @@ CHIP
   scoll down to STM32F4
 - STM32F407VG (The chip on my STM32F4 discovery board)
 - Finished
-
 ****************************************************************
 REPOSITORY COMMON
 Check the following boxes
@@ -58,8 +51,7 @@ CONFIGURATION LINK
 
 ****************************************************************
 
-FILE: startup_stm32f4xx.c
-
+FILE: startup_stm32f3xx.c
 - Change line 24
 from
   #define STACK_SIZE       0x00000200      /*!< The Stack size suggest using even number    */
@@ -102,7 +94,6 @@ from
    #define PLL_M      25
 to
    #define PLL_M      8
-
 ****************************************************************
 FILE: stm32f4xx.h 
 - Change line 92/
@@ -110,7 +101,6 @@ from
 #define HSE_VALUE    ((uint32_t)25000000)    
 to
 #define HSE_VALUE    ((uint32_t)8000000) 
-
 ****************************************************************
 FILE: serial.h
 
@@ -121,6 +111,7 @@ to
 #include "stm32f4xx_conf.h"
 
 ****************************************************************
+
 FILE: syscalls.c
 
 - Replace this lines 4 - 9
@@ -209,6 +200,4 @@ FILE: stm32f4xx_conf.h
 #include "stm32f4xx_usart.h"
 //#include "stm32f4xx_wwdg.h"
 #include "misc.h"
-
-Don't forget to add this.
 #include "syscalls.h"
