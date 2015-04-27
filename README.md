@@ -54,9 +54,9 @@ CONFIGURATION LINK
 FILE: startup_stm32f3xx.c
 - Change line 24
 from
-  #define STACK_SIZE       0x00000200      /*!< The Stack size suggest using even number    */
+- #define STACK_SIZE       0x00000200      /*!< The Stack size suggest using even number    */
 to 
-  #define STACK_SIZE       0x00002000      /*!< The Stack size suggest using even number    */
+- #define STACK_SIZE       0x00002000      /*!< The Stack size suggest using even number    */
 
 - Change line 143
 from 
